@@ -9,7 +9,7 @@ require Exporter;
 
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( http );
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub http
 {
@@ -66,8 +66,6 @@ HTTP::Tiny and Furl is wonderful, but no autoretry.
 
 HTTP::Retry resloves this, then make your code clearer.
 
-Return value is L<HTTP::Response>.
-
 Enjoy it!
 
 =head2 EASY MODE
@@ -89,8 +87,6 @@ Set timeout and retry values as your wish.
 =head1 SEE ALSO
 
 L<HTTP::Tiny>, L<Furl>, L<Hijk>
-
-L<HTTP::Response>
 
 =head1 AUTHOR
 
