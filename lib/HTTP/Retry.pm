@@ -9,7 +9,7 @@ require Exporter;
 
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( http );
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub http
 {

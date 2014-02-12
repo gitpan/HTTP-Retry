@@ -5,3 +5,5 @@ Revision history for Perl extension HTTP::Retry.
 		-XA -b 5.8.8 -n HTTP::Retry
 0.02  Fri Feb  7 10:39:21 2014
     - fix a test bug on FreeBSD
+0.03  Wed Feb 12 10:40:18 2014
+    - change test url from example.com to cpan.org
