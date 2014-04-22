@@ -9,7 +9,7 @@ require Exporter;
 
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw( http );
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub http
 {
@@ -17,18 +17,21 @@ sub http
 	my $url;
 	my $timeout;
 	my $retry;
+	my $sleep;
 	unless($#_)
 	{
 		$url = shift;
-		$timeout = 3;
+		$timeout = 5;
 		$retry = 3;
+		$sleep = 0;
 	}
 	else
 	{
 		%conf = @_;
 		$url = $conf{'url'};
-		$timeout = $conf{'timeout'} || 3;
+		$timeout = $conf{'timeout'} || 5;
 		$retry = $conf{'retry'} || 3;
+		$sleep = $conf{'sleep'} || 0;
 	}
 	return "failed cause empty url" unless $url;
 
@@ -38,8 +41,9 @@ sub http
 	{
 		$resp = $http_tiny->get($url);
 		return $resp if $resp->{success};
+		sleep $sleep if $sleep > 0 ;
 	}
-	return "failed at timeout=$timeout, retry=$retry";
+	return "failed at timeout=$timeout, retry=$retry, sleep=$sleep";
 }
 1;
 __END__
@@ -52,7 +56,7 @@ HTTP::Retry - Wrapped HTTP::Tiny with timeout and retry
 
   use HTTP::Retry qw(http);
   $response = http("http://www.example.com");
-  $response = http('url' => 'http://www.example.com', 'timeout' => 1, 'retry' => 10);
+  $response = http('url' => 'http://www.example.com', 'timeout' => 1, 'retry' => 10, 'sleep' => 1);
   print $response->{status};
   print $response->{content} if $response->{success};
 
@@ -78,9 +82,9 @@ Easy write and understand with 3 seconds timeout and 3 times retry.
 
 =head2 COMPLEX MODE
 
-Set timeout and retry values as your wish.
+Set timeout and retry times as your wish.
 
-  my $response = http('url' => 'http://www.example.com', 'timeout' => 1, 'retry' => 10);
+  my $response = http('url' => 'http://www.example.com', 'timeout' => 1, 'retry' => 10, 'sleep' => 1);
   print $response->{content};
 
 
